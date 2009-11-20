@@ -10,5 +10,11 @@ module Shoppr
     xml_reader :offers, :as => [Offer], :from => 'items/offer'
     xml_reader :attributes, :as => [Attribute], :in => 'attributes'
     xml_reader :categories, :as => [Category], :in => 'categories'
+
+    class << self
+      def from_xml(data)
+        super( data.to_xml )
+      end
+    end
   end
 end
