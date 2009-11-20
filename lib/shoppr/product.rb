@@ -24,5 +24,12 @@ module Shoppr
     xml_reader :product_specs_url, :from => 'productSpecsURL'
     xml_reader :offers, :as => [Offer], :in => 'offers'
     xml_reader :specifications, :as => [FeatureGroup], :from => 'specifications/featureGroup'
+
+    class << self
+      def find_by_id( id )
+        result = Shoppr.search_for(:productId=>id)
+	result.categories.first.products.first unless result.categories.empty?
+      end
+    end
   end
 end

@@ -44,6 +44,22 @@ module HTTParty
 end
 
 module Shoppr
+
+  def self.use_sandbox
+    @api_key.nil?
+  end
+
+  def self.api_url
+    use_sandbox ? 'http://sandbox.api.shopping.com/publisher/3.0/rest/GeneralSearch' : 'somethingelse'
+  end
+
+  def self.request_uri(options)
+    URI.parse( "#{self.api_url}?apiKey=#{api_key}&trackingId=#{tracking_id}&#{options.to_param}" )
+  end
+
+  def self.search_for(options)
+    GeneralSearchResponse.from_xml(Net::HTTP.get( self.request_uri(options)))
+  end
   
   def self.api_key
     @api_key ||= 'authorized-key'
