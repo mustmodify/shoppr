@@ -62,7 +62,7 @@ module Shoppr
   end
   
   def self.api_key
-    @api_key ||= 'authorized-key'
+    @api_key || 'authorized-key'
   end
   
   def self.api_key=(value)
